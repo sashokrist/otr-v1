@@ -1,4 +1,4 @@
-@extends('platform::dashboard')
+@extends('dashboard')
 
 @section('title')
     {{ __($name) }}
@@ -37,7 +37,7 @@
     >
         {!! $layouts !!}
         @csrf
-        @include('platform::partials.confirm')
+        @include('partials.confirm')
     </form>
 
     <div data-controller="filter">

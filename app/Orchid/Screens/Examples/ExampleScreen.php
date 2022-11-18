@@ -159,6 +159,12 @@ class ExampleScreen extends Screen
                 'Total Earnings' => 'metrics.total',
             ]),
 
+            Layout::tabs([
+                'Example Tab 1' => Layout::view('platform::dummy.block'),
+                'Example Tab 2' => Layout::view('platform::dummy.block'),
+                'Example Tab 3' => Layout::view('platform::dummy.block'),
+            ]),
+
             Layout::columns([
                 ChartLineExample::make('charts', 'Line Chart')
                     ->description('It is simple Line Charts with different colors.'),

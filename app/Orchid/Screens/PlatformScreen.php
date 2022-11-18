@@ -17,7 +17,14 @@ class PlatformScreen extends Screen
      */
     public function query(): iterable
     {
-        return [];
+        return [
+            'metrics' => [
+                'sales'    => ['value' => number_format(6851), 'diff' => 10.08],
+                'visitors' => ['value' => number_format(24668), 'diff' => -30.76],
+                'orders'   => ['value' => number_format(10000), 'diff' => 0],
+                'total'    => number_format(65661),
+            ],
+        ];
     }
 
     /**
@@ -70,7 +77,18 @@ class PlatformScreen extends Screen
     public function layout(): iterable
     {
         return [
-            Layout::view('partials.welcome'),
+            Layout::metrics([
+                'Total figure1'    => 'metrics.sales',
+                'Total figure2' => 'metrics.visitors',
+                'Total figure3' => 'metrics.orders',
+                'Total figure' => 'metrics.total',
+            ]),
+
+            Layout::columns([
+                Layout::view('dummy.block'),
+                Layout::view('dummy.block'),
+                Layout::view('dummy.block'),
+            ]),
         ];
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Orchid\Screens\User;
 
+use App\Orchid\Layouts\User\SearchUserListLayout;
 use App\Orchid\Layouts\User\UserEditLayout;
 use App\Orchid\Layouts\User\UserFiltersLayout;
 use App\Orchid\Layouts\User\UserListLayout;
@@ -72,20 +73,23 @@ class UserListScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-            ModalToggle::make('Add')
-                ->modal('asyncEditUserModal')
-                ->method('saveUser')
-                ->icon('user'),
-
-            Button::make('Export file')
+            Button::make('Export')
                 ->method('export')
                 ->icon('cloud-download')
                 ->rawClick()
                 ->novalidate(),
 
-            Link::make(__('Search'))
-                ->icon('eye')
-                ->route('platform.systems.users'),
+            ModalToggle::make('Search')
+                ->modal('searchUserModal')
+                ->modalTitle('Search Users')
+                ->method('saveUser')
+                ->icon('eyeglasses'),
+
+            ModalToggle::make('New user')
+                ->modal('addEditUserModal')
+                ->modalTitle('New User or Edit existing')
+                ->method('saveUser')
+                ->icon('user'),
         ];
     }
 
@@ -100,7 +104,10 @@ class UserListScreen extends Screen
             UserFiltersLayout::class,
             UserListLayout::class,
 
-            Layout::modal('asyncEditUserModal', UserEditLayout::class)
+            Layout::modal('addEditUserModal', UserEditLayout::class)
+                ->async('asyncGetUser'),
+
+            Layout::modal('searchUserModal', SearchUserListLayout::class)
                 ->async('asyncGetUser'),
         ];
     }
@@ -123,6 +130,7 @@ class UserListScreen extends Screen
      */
     public function saveUser(Request $request, User $user): void
     {
+        dd($request->all());
         $request->validate([
             'user.email' => [
                 'required',

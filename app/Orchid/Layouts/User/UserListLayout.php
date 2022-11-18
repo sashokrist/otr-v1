@@ -38,7 +38,7 @@ class UserListLayout extends Table
                 ->cantHide()
                 ->filter(Input::make())
                 ->render(fn (User $user) => ModalToggle::make($user->email)
-                    ->modal('asyncEditUserModal')
+                    ->modal('addEditUserModal')
                     ->modalTitle($user->presenter()->title())
                     ->method('saveUser')
                     ->asyncParameters([

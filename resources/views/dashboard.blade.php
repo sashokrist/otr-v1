@@ -21,9 +21,9 @@
 
             <nav class="collapse d-md-block w-100 mb-md-3" id="headerMenuCollapse">
 
-                @include('platform::partials.search')
+                @include('partials.search')
 
-                @includeWhen(Auth::check(), 'platform::partials.profile')
+                @includeWhen(Auth::check(), 'partials.profile')
 
                 <ul class="nav flex-column mb-1 ps-0">
                     {!! Dashboard::renderMenu(\Orchid\Platform\Dashboard::MENU_MAIN) !!}
@@ -44,7 +44,7 @@
             </div>
 
             <footer class="p-3 mb-2 m-t d-none d-lg-block w-100">
-                @includeFirst([config('platform.template.footer'), 'platform::footer'])
+                @includeFirst([config('template.footer'), 'footer'])
             </footer>
 
         </div>
@@ -78,7 +78,7 @@
             </nav>
         </div>
 
-        @include('platform::partials.alert')
+        @include('partials.alert')
         @yield('content')
     </div>
 @endsection
